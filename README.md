@@ -1,4 +1,4 @@
-# Associations between emergency procedures and outcomes in adult trauma patients
+# Association between level of hospital care and specific opportunities for improvement in adult trauma patients
 
 This repository includes the documents and code for the research project on the association between level of hospital care and specific opportunities for improvement in adult trauma patients. 
 
