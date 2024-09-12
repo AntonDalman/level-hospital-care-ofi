@@ -5,3 +5,4 @@ PROJECT.org*
 **/*.Rds
 results/
 ki-ignored-by-git
+.Rproj.user

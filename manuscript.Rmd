@@ -51,17 +51,27 @@ Conclusion
 Introduction
 ============
 
+Trauma is a global issue affecting millions of people every year worldwide. The exact numbers differ due to different methods of gathering data, and data availability. Worldwide, somewhere between 4-6 million people die every year due to trauma, and around 40 million get permanently injured and 100 million people get temporarily injured each year (cite). In Sweden, during 2023, 5221 people died due to trauma (cite socialstyrelsen). The level of care a trauma patient receive can differ between hospitals, regions and countries. The level of care can differ according to severity of injury, but also according to local regulations, space and economical concerns. 
+Level of care can be categorized according to five categories in order of most care to least care, emergency department, general ward, operating theatre, high dependency unit and critical care unit. Depending on the severity of the injury each patient supposedly ends up in a higher care level. A higher care level equals more doctors, nurses and staff, as well as access to more complex machinery. However, it also equals a higher cost, and a larger drain of resources. 
+In this paper we aim at looking at opportunities for improvement regarding level of care. Opportunities for improvement can be categorized as factors affecting morbidity and mortality. We will also discuss whether patients end up in the right care level according to the severity of their injuries, or if they end up in a potentially higher care level then required, thus costing money and resources. 
+
+
 <!-- Explain the scientific background and rationale for the
 investigation being reported. End by stating the aim or specific
 objectives, including any prespecified hypotheses. The introduction
 should not be longer than 1-1.5 pages, typically 4-5 paragraphs, each
 6-8 lines long. Support every statement with a citation -->
 
+This is some random text.
+
 You can cite document here like this [@exampleKey9999]. Open the file
 bibliography.bib to learn more.
 
 Methods 
 =======
+
+In order to answer these questions, we will use the patient data register at Karolinska institute trauma center from 2013-2023, thus making a single center retrospective cohort study. We will search for opportunities that improve mortality and morbidity in regard to care level. 
+
 
 Study design
 ------------
