@@ -4,4 +4,5 @@ PROJECT.org*
 .Rhistory
 **/*.Rds
 results/
+ki-ignored-by-git
 .Rproj.user
