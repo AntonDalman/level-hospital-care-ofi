@@ -20,14 +20,49 @@
 ## clean R session.
 noacsr::source_all_functions()
 
-# Load the rofi package
+# Load packages
 library(rofi)
+library(dplyr)
+library(gtsummary)
+library(labelled)
 
-## Import data
+# Import data
 data <- import_data(test = TRUE)
 
-## Whatever you do next, maybe clean data?
+# Merge data
+merged.data <- merge_data(data, test = TRUE)
 
+# Add the OFI outcome
+merged.data$ofi <- create_ofi(merged.data)
+
+# Select variables, this is just an example. The function select comes from the 
+# dplyr package
+study.data <- merged.data |> 
+  select(pt_age_yrs, 
+         pt_Gender, 
+         inj_mechanism, 
+         pt_asa_preinjury, 
+         ed_gcs_sum,
+         ed_sbp_value,
+         ed_rr_value,
+         ed_be_art,
+         ISS,
+         host_care_level,
+         res_survival,
+         ofi)
+
+# Exclude patients who were not reviewed for the presence of OFI
+study.sample <- study.data |>
+  filter(!is.na(ofi))
+
+# Label variables
+var_label(study.sample$pt_age_yrs) <- "Age in years"
+var_label(study.sample$ofi) <- "Opportunities for improvement"
+
+# Create a table of sample characteristics
+sample.characteristics.table <- tbl_summary(study.sample,
+                                            by = ofi)
+  
 # These are my dataframes, vectors and so on
 
 # First I need to include the vectors I need to use in my dataframe. 
