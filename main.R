@@ -20,6 +20,9 @@
 ## clean R session.
 noacsr::source_all_functions()
 
+# Load the rofi package
+library(rofi)
+
 ## Import data
 data <- import_data(test = TRUE)
 
