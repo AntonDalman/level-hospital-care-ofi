@@ -1,4 +1,4 @@
----
+output:word---
 title: "Manuscript title here"
 subtitle: "Add a Subtitle if Needed"
 author: "Your name here"
@@ -6,170 +6,274 @@ bibliography: bibliography.bib
 csl: vancouver.csl
 knit: (function(inputFile, encoding) {
   rmarkdown::render(inputFile, encoding = encoding, output_dir = "out") })
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{=html}
 <!-- The project plan should be 3-4 pages long and written in
 Rmarkdown (like this document). Remove all comments in italic when you 
 use this document as a template for your own project plan. -->
-
+```
+```{=html}
 <!-- This is an R Markdown document. Markdown is a simple formatting
 syntax for authoring HTML, PDF, and MS Word documents. For more
 details on using R Markdown see http://rmarkdown.rstudio.com -->
-
+```
+```{=html}
 <!-- This is a comment and will not be present in the compiled
 document. Try "knitting" this document by clicking the knit button up
 to the left, or by running `rmarkdown::render("project-plan.Rmd")` in
 the console and you should only see headings -->
+```
+# Introduction
 
+*This is part A) in the project plan [sv: projektredogörelse].*
 
-Introduction
-============
+Background Trauma is a global issue affecting millions of people every
+year worldwide. The exact numbers differ due to different methods of
+gathering data, and data availability. Worldwide, somewhere between 4-6
+million people die every year due to trauma, and around 40 million get
+permanently injured and 100 million people get temporarily injured each
+year (cite). In Sweden, during 2023, 5221 people died due to trauma
+(cite)The level of care a trauma patient receive can differ between
+hospitals, regions and countries. The level of care can differ according
+to severity of injury, but also according to local regulations, space
+and economical concerns. Level of care can be summarized according to
+five categories. In order of most care to least care is emergency
+department, general ward, operating theatre, high dependency unit and
+critical care unit. These are based on the Utstein template for
+reporting trauma and are logged in the Karolinska Hospital trauma
+registry which will be used for this article. The American college of
+surgeons (ACS) also have a template which divide patient care in levels
+from I-V. I is comparable to a large hospital with best of the line
+trauma care, including a critical care unit, while V is more comparable
+to a smaller regional emergency centre (CITE). Several studies have been
+made on the subject of levels of care on these care levels and will be
+discussed in the discussion part of this article, despite the difference
+between ACS care levels and the Utstein template. Depending on the
+severity of the injury each patient supposedly ends up in a higher care
+level. A higher care level equals more doctors, nurses and staff, as
+well as access to more complex machinery. However, it also equals a
+higher cost, and a larger drain of resources. In Sweden, as well as
+worldwide (cite/cite), triage is used in order for a patient to end up
+at the right care level. There is always however risk for under- or over
+triage. In general, both in Sweden and worldwide, we would prefer to
+over triage patients rather than under triage them. This means that we
+would rather a less severe patient end up in higher-level care than a
+more severe patient end up in a lower level of care. In Sweden during
+2018, 49.9% of patients were over triaged while 11.2% were under triaged
+(CITE). The authors of this study discussed that these numbers may not
+be completely representative of the data due to changes in how to
+measure triage, however the same general trend would show, were under
+triage is generally rather uncommon compared to over triage. This is
+comparable to numbers globally. The risk of under triaging patient
+equals a higher mortality rate (CITE), a higher morbidity rate (CITE),
+as well as a high economical burden. Compared to over triaging patients,
+the risk of morbidity and mortality decrease but the risk of high cost
+remains. Since it's more common to over triage a patient compared to the
+opposite, the higher economical cost comes from over triaging. Triage is
+a large part of why a patient ends up in a specific care level, and may
+be a large part of were opportunities for improvement may be found. It's
+not the only one, however. Within different level of care, there are
+different sources of improvement opportunities.
 
-*This is part A) in the project plan [sv: projektredogörelse]. *
+Each of these categories possibly have their own set of problems and
+opportunities for improvement. According to study (cite), many patients
+stay too long in the emergency ward before reaching the level of care
+required for treatment. On the other hand, studies show (cite) that
+there is a correlation with a longer stay in a critical care unit and
+patient recovery. We will discuss reasons for this in the discussion
+part of this paper.\
+In this paper we aim at looking at opportunities for improvement
+regarding level of care. Opportunities for improvement can be
+categorized as factors affecting morbidity and mortality. We will also
+discuss whether patients end up in the right care level according to the
+severity of their injuries, or if they end up in a potentially higher
+care level then required, thus costing money and resources.
+Opportunities for improvement is since 2017 measured by a specialized
+nurse, who in Karolinska hospital reviews all trauma patient cases and
+flags cases where OFI might be found. The cases flagged then get
+reviewed at a deeper level by another specialized nurse, and the cases
+where OFI might be found gets reviewed by a multidisciplinary
+conference, where cases are either admitted or discarded. All patients
+dying due to trauma are also discussed in a conference where OFI is also
+discussed. Before 2017 OFI was decided by a smaller group of clinicians
+(HAR EJ KÄLLA PÅ DETTA, ÄR DET OK ATT ANVÄNDA HUSSEINS ARTIKEL?)
+Opportunities for improvement include factors affecting mortality and
+morbidity. The ones included are the following: clinical judgment
+errors, delays in treatment or diagnosis, missed diagnoses, technical
+errors, preventable deaths and other errors. Clinical judgment errors
+are somewhat common in the emergency ward, according to a systematic
+review published in 2022. There 5.7 percent of patients had at least one
+diagnostical error, resulting in harm becoming 2 percent of patients and
+death in about 0.2. These percentages are low, but due to the traffic
+emergency wards receive -- about 130 million patients every year in the
+US, which means that 7 millions of these are misdiagnosed, resulting in
+harming 2.5 million and resulting in 350 000 deaths (CITE). Around 5%-
+10% of autopsied patients show signs of misdiagnosis being a
+contributing factor for the patients death (cite). A study of 300 000
+new York hospital cases found that 14% of errors where diagnostic in
+nature (CITE).
 
-Background
-Trauma is a global issue affecting millions of people every year worldwide. The exact numbers differ due to different methods of gathering data, and data availability. Worldwide, somewhere between 4-6 million people die every year due to trauma, and around 40 million get permanently injured and 100 million people get temporarily injured each year (cite). In Sweden, during 2023, 5221 people died due to trauma (cite)The level of care a trauma patient receive can differ between hospitals, regions and countries. The level of care can differ according to severity of injury, but also according to local regulations, space and economical concerns. 
-Level of care can be summarized according to five categories. In order of most care to least care is emergency department, general ward, operating theatre, high dependency unit and critical care unit. These are based on the Utstein template for reporting trauma and are logged in the Karolinska Hospital trauma registry which will be used for this article. 
-The American college of surgeons (ACS) also have a template which divide patient care in levels from I-V.  I is comparable to a large hospital with best of the line trauma care, including a critical care unit, while V is more comparable to a smaller regional emergency centre (CITE). Several studies have been made on the subject of levels of care on these care levels and will be discussed in the discussion part of this article, despite the difference between ACS care levels and the Utstein template.
-Depending on the severity of the injury each patient supposedly ends up in a higher care level. A higher care level equals more doctors, nurses and staff, as well as access to more complex machinery. However, it also equals a higher cost, and a larger drain of resources. In Sweden, as well as worldwide (cite/cite), triage is used in order for a patient to end up at the right care level. There is always however risk for under- or over triage. In general, both in Sweden and worldwide, we would prefer to over triage patients rather than under triage them. This means that we would rather a less severe patient end up in higher-level care than a more severe patient end up in a lower level of care. In Sweden during 2018, 49.9% of patients were over triaged while 11.2% were under triaged (CITE). The authors of this study discussed that these numbers may not be completely representative of the data due to changes in how to measure triage, however the same general trend would show, were under triage is generally rather uncommon compared to over triage. 
-This is comparable to numbers globally. The risk of under triaging patient equals a higher mortality rate (CITE), a higher morbidity rate (CITE), as well as a high economical burden. Compared to over triaging patients, the risk of morbidity and mortality decrease but the risk of high cost remains. Since it’s more common to over triage a patient compared to the opposite, the higher economical cost comes from over triaging. 
-Triage is a large part of why a patient ends up in a specific care level, and may be a large part of were opportunities for improvement may be found. It’s not the only one, however. Within different level of care, there are different sources of improvement opportunities. 
-
-
-Each of these categories possibly have their own set of problems and opportunities for improvement. According to study (cite), many patients stay too long in the emergency ward before reaching the level of care required for treatment. On the other hand, studies show (cite) that there is a correlation with a longer stay in a critical care unit and patient recovery. We will discuss reasons for this in the discussion part of this paper.  
-In this paper we aim at looking at opportunities for improvement regarding level of care. Opportunities for improvement can be categorized as factors affecting morbidity and mortality. We will also discuss whether patients end up in the right care level according to the severity of their injuries, or if they end up in a potentially higher care level then required, thus costing money and resources. 
-Opportunities for improvement is since 2017 measured by a specialized nurse, who in Karolinska hospital reviews all trauma patient cases and flags cases where OFI might be found. The cases flagged then get reviewed at a deeper level by another specialized nurse, and the cases where OFI might be found gets reviewed by a multidisciplinary conference, where cases are either admitted or discarded. All patients dying due to trauma are also discussed in a conference where OFI is also discussed. Before 2017 OFI was decided by a smaller group of clinicians (HAR EJ KÄLLA PÅ DETTA, ÄR DET OK ATT ANVÄNDA HUSSEINS ARTIKEL?)
-Opportunities for improvement include factors affecting mortality and morbidity. The ones included are the following: clinical judgment errors, delays in treatment or diagnosis, missed diagnoses, technical errors, preventable deaths and other errors. 
-Clinical judgment errors are somewhat common in the emergency ward, according to a systematic review published in 2022. There 5.7 percent of patients had at least one diagnostical error, resulting in harm becoming 2 percent of patients and death in about 0.2. These percentages are low, but due to the traffic emergency wards receive – about 130 million patients every year in the US, which means that 7 millions of these are misdiagnosed, resulting in harming 2.5 million and resulting in 350 000 deaths (CITE). Around 5%- 10% of autopsied patients show signs of misdiagnosis being a contributing factor for the patients death (cite).  A study of 300 000 new York hospital cases found that 14% of errors where diagnostic in nature (CITE). 
-
-Data that separates where the error has happened and where the greatest chance of OFI exist are rare. There are many studies on errors in the emergency room, but not many describing specific instances of error in the general ward. 
-Adverse events, defined as “a harmful and negative outcome which happens when a patient has been provided with medical care” have been used in many studies (CITE). Adverse events due to surgery was deemed the highest risk of adverse events in a hospital setting according to paper (CITE) in where, 66% of adverse events happened in a surgical setting, and the article discussed that around 50% of these adverse events were preventable.  
-Data about doctor error in the High-dependency unit is rare and seems not to have been studied specifically, thus it’s hard to generalize about specific OFI at this care level according to previous articles. 
-In an older study from 2005, 50 errors involving 32 patients were made by doctors in an ICU setting. These errors resulted in a higher mortality rate (38% vs 9%). The errors were categorized as human failures in 73% of cases, and as avoidable in 92% (CITE) A Swedish study involving 128 patient cases where the patients had died following ICU care, 22 patients having suffered avoidable adverse events were identified (CITE).  According to a study based on 35311 trauma patients being treated from years 1998-2005, 2081 patients died and 51 patients deaths were deemed to be possibly preventable. 28 (54.9%) of these patients died in the ICU, 13 (25.5%) patients died in the opertating room and 5 (9.8%) died in the emergency room (CITE). 
-All in all, according to World health organisation, 1 in 10 patients are negatively impacted by doctor error (CITE). More studies related to doctor error have been conducted in the emergency ward setting, the operating theatre and the intensive care unit compared to the general ward and the high-dependency unit. This might point to the fact that there may be a larger amount of opportunities for improvement in these less studied cohorts.  
-
+Data that separates where the error has happened and where the greatest
+chance of OFI exist are rare. There are many studies on errors in the
+emergency room, but not many describing specific instances of error in
+the general ward. Adverse events, defined as "a harmful and negative
+outcome which happens when a patient has been provided with medical
+care" have been used in many studies (CITE). Adverse events due to
+surgery was deemed the highest risk of adverse events in a hospital
+setting according to paper (CITE) in where, 66% of adverse events
+happened in a surgical setting, and the article discussed that around
+50% of these adverse events were preventable.\
+Data about doctor error in the High-dependency unit is rare and seems
+not to have been studied specifically, thus it's hard to generalize
+about specific OFI at this care level according to previous articles. In
+an older study from 2005, 50 errors involving 32 patients were made by
+doctors in an ICU setting. These errors resulted in a higher mortality
+rate (38% vs 9%). The errors were categorized as human failures in 73%
+of cases, and as avoidable in 92% (CITE) A Swedish study involving 128
+patient cases where the patients had died following ICU care, 22
+patients having suffered avoidable adverse events were identified
+(CITE). According to a study based on 35311 trauma patients being
+treated from years 1998-2005, 2081 patients died and 51 patients deaths
+were deemed to be possibly preventable. 28 (54.9%) of these patients
+died in the ICU, 13 (25.5%) patients died in the opertating room and 5
+(9.8%) died in the emergency room (CITE). All in all, according to World
+health organisation, 1 in 10 patients are negatively impacted by doctor
+error (CITE). More studies related to doctor error have been conducted
+in the emergency ward setting, the operating theatre and the intensive
+care unit compared to the general ward and the high-dependency unit.
+This might point to the fact that there may be a larger amount of
+opportunities for improvement in these less studied cohorts.
 
 *The background/introduction should summarise the scope of the problem,
 what is known about the problem, what is not known, what specific
-knowledge gap the study is supposed to fill and why this is
-important. It should end be stating the aim of the study. The
-background should be 4-5 paragraphs long and each paragraph should be
-between 3-5 sentences. Strive to make the paragraphs about the same
-length.*
+knowledge gap the study is supposed to fill and why this is important.
+It should end be stating the aim of the study. The background should be
+4-5 paragraphs long and each paragraph should be between 3-5 sentences.
+Strive to make the paragraphs about the same length.*
 
 *bibliography.bib includes an example reference. Add additional
 references in that file as bibtex entries and then cite in text using:
-"[@exampleKey9999]". One can convert DOIs' to bibtex entries using 
-https://www.doi2bib.org/. If you use Zotero you can simply export 
-entries to bibtex `Ctrl-Shift-C`, however you need to first setup 
-Quick Copy to export to bibtex (https://www.zotero.org/support/creating_bibliographies#quick_copy)*
+"[@exampleKey9999]". One can convert DOIs' to bibtex entries using
+<https://www.doi2bib.org/>. If you use Zotero you can simply export
+entries to bibtex `Ctrl-Shift-C`, however you need to first setup Quick
+Copy to export to bibtex
+(<https://www.zotero.org/support/creating_bibliographies#quick_copy>)*
 
-Methods
-=======
+# Methods
 
-To answer these questions, we will use the trauma care quality database and trauma registry from Karolinska University hospital. Using these two databases we will conduct a registry-based cohort study. The data available in the trauma registry includes 14000 trauma patients and is logged from the years 2012-2023. The data from the trauma care quality database is a subset of the same data containing 8000 patients where opportunities for improvement have also been logged. This project will examine whether there are specific opportunities for improvement in regards to the level of care these patients received. 
-RStudio will be used in order to extract the data needed to answer these questions. 
-Relevant literature will be found on Pubmed using relevant search queries, including but not limited to “trauma”, “level of care” and “improvement”.
-A 5% significance level and 95% confidence levels will be used.
-
-
+To answer these questions, we will use the trauma care quality database
+and trauma registry from Karolinska University hospital. Using these two
+databases we will conduct a registry-based cohort study. The data
+available in the trauma registry includes 14000 trauma patients and is
+logged from the years 2012-2023. The data from the trauma care quality
+database is a subset of the same data containing 8000 patients where
+opportunities for improvement have also been logged. This project will
+examine whether there are specific opportunities for improvement in
+regards to the level of care these patients received. RStudio will be
+used in order to extract the data needed to answer these questions.
+Relevant literature will be found on Pubmed using relevant search
+queries, including but not limited to "trauma", "level of care" and
+"improvement". A 5% significance level and 95% confidence levels will be
+used.
 
 *Refer to the appropriate reporting guideline for details. If you are
-developing, updating or validating a clinical prediction model then
-use
-[TRIPOD](https://www.equator-network.org/reporting-guidelines/tripod-statement/). If
-you are conducting an observational study, for example a cohort or
+developing, updating or validating a clinical prediction model then use
+[TRIPOD](https://www.equator-network.org/reporting-guidelines/tripod-statement/).
+If you are conducting an observational study, for example a cohort or
 case control study in which you assess associations between some
 exposure and an outcome then use
 [STROBE](https://www.equator-network.org/reporting-guidelines/strobe/).*
 
+Purpose The purpose of this paper is to find opportunities for
+improvement regarding trauma and level of hospital care. Different
+levels of hospital care may affect opportunities for improvement in the
+treatment of adult patients with trauma.
 
+# Project Update and Timeline
 
-Purpose
-The purpose of this paper is to find opportunities for improvement regarding trauma and level of hospital care. Different levels of hospital care may affect opportunities for improvement in the treatment of adult patients with trauma.
+Week 1: - Introduce myself to the NOACS team. - Familiarize myself with
+GitHub, RStudio. - Attend lectures and take part of material from
+Karolinska.
 
+Week 2: -- Start looking at relevant articles for background. - Create
+first draft of the project plan - Create first draft of the manuscript -
+Learn how to use RStudio by practising in the program Swirl.
 
+Week 3: - Compile all relevant articles for the project plan, and most
+of the relevant articles for the background. - Create a version of the
+project plan that's almost finished (finished from my end, pending
+control from my supervisor) - Use Zotero for the references - Start
+using RStudio in order to work with the relevant data Week 4 - Revise
+project plan based on feedback from supervisor. - Add code that creates
+a first table of sample characteristics. - Work with the code and with
+RStudio Week 5- 7 - Keep writing introduction and methods - Write code
+that generates results based on the training data. Revise the code based
+on feedback from my supervisor and team.
 
-Project Update and Timeline
-===========================
+Week 7-10 - Work on the real patient data with my code. Revise code as
+needed Week 11-12 - Write results part of thesis.
 
-Week 1:
--	Introduce myself to the NOACS team.
--	Familiarize myself with GitHub, RStudio.
--	Attend lectures and take part of material from Karolinska. 
+Week 13-14 - Revise results based on feedback - Write discussion Week
+15 - Revise discussion based on feedback - Draft complete thesis
 
-Week 2:
-–  Start looking at relevant articles for background. 
--	Create first draft of the project plan
--	Create first draft of the manuscript
--	Learn how to use RStudio by practising in the program Swirl. 
+Week 16-17 - Revise thesis and abstract as needed Week 18 -- 20 - Revise
+based on feedback from Karolinska
 
+Right now I'm currently learning how to code in RStudio, which is taking
+up most of my time. I'm also looking for relevant articles in order to
+start writing the introduction part of the thesis. The data I'm going to
+be looking at is register based data using patient data registers at
+Karolinska. I'm going to create a code which looks at variables
+concerning level of care and opportunities for improvement. I'm not
+entirely sure how I will present this data, but some sort of graph seems
+to me a good choice. I will have to analyze it first, and possibly also
+draft the "results" part of the thesis before I decide on the best
+course of action.
 
-Week 3:
--	Compile all relevant articles for the project plan, and most of the relevant articles for the background. 
--	Create a version of the project plan that’s almost finished (finished from my end, pending control from my supervisor) 
--	Use Zotero for the references
--	Start using RStudio in order to work with the relevant data
-Week 4
--	Revise project plan based on feedback from supervisor. 
--	Add code that creates a first table of sample characteristics.
--	Work with the code and with RStudio
-Week 5- 7
--	Keep writing introduction and methods
--	Write code that generates results based on the training data. Revise the code based on feedback from my supervisor and team.
+*This is part B) in the project plan [sv: projektredogörelse].*
 
-Week 7-10 
--	Work on the real patient data with my code. Revise code as needed
-Week 11-12
--	Write results part of thesis.
+*Save the image generated from the Gantt chard spreadsheet into the
+assets folder, rename it to project-gantt.png*
 
-Week 13-14
--	Revise results based on feedback
--	Write discussion
-Week 15
--	Revise discussion based on feedback 
--	Draft complete thesis
+![**The Gantt chart will be displayed here when you place it in the
+assets folder under "project-gantt.png"**](assets/project-gantt.png)
 
-Week 16-17
--	Revise thesis and abstract as needed
-Week 18 – 20 
--	Revise based on feedback from Karolinska 
+Ethical permit and consideration Ethical permit: 2021-02541, 2021-03531
+and 2023-02975-02 In this project, personal patient data will be used
+without identifying the patient. It will also be done without the
+patient's direct consent. There are, however, no reason to believe that
+a patient would not accept being part of registry if asked. Care will be
+taken in order to not spread the data to people outside of the scope of
+the study. The purpose of this study is to improve the quality of care
+for trauma patients. There are no apparent risks that this study may be
+used for malicious use. It is possible that this study may be used for
+future commercial use by a private health center. This would most likely
+be to the benefit of the patients in this health center and is therefore
+not a valid reason for not publishing this study. It's possible that
+when spending time on this study, time and resources are used that could
+be better spent elsewhere, and on other studies. This is an argument
+that could be made of every study ever made, and since this study is not
+using up any finite resource (except for arguably time), this is not a
+valid argument for discontinuing the study.
 
+# Back-up Plan
 
-Right now
-I’m currently learning how to code in RStudio, which is taking up most of my time. I’m also looking for relevant articles in order to start writing the introduction part of the thesis. 
-The data I’m going to be looking at is register based data using patient data registers at Karolinska. I’m going to create a code which looks at variables concerning level of care and opportunities for improvement. I’m not entirely sure how I will present this data, but some sort of graph seems to me a good choice. I will have to analyze it first, and possibly also draft the “results” part of the thesis before I decide on the best course of action. 
-
-
-
-*This is part B) in the project plan [sv: projektredogörelse]. *
-
-*Save the image generated from the Gantt chard spreadsheet into the assets folder, rename it to project-gantt.png*
-
-![**The Gantt chart will be displayed here when you place it in the assets folder under "project-gantt.png"**](assets/project-gantt.png)
-
-Ethical permit and consideration
-Ethical permit: 2021-02541, 2021-03531 and 2023-02975-02
-In this project, personal patient data will be used without identifying the patient. It will also be done without the patient’s direct consent. There are, however, no reason to believe that a patient would not accept being part of registry if asked. Care will be taken in order to not spread the data to people outside of the scope of the study. 
-The purpose of this study is to improve the quality of care for trauma patients. There are no apparent risks that this study may be used for malicious use. It is possible that this study may be used for future commercial use by a private health center. This would most likely be to the benefit of the patients in this health center and is therefore not a valid reason for not publishing this study. 
-It's possible that when spending time on this study, time and resources are used that could be better spent elsewhere, and on other studies. This is an argument that could be made of every study ever made, and since this study is not using up any finite resource (except for arguably time), this is not a valid argument for discontinuing the study. 
-
-
-
-
-Back-up Plan
-============
-
-This paper depend to a large part on my ability to create good enough code. I don’t appreciate any significant problems regarding other areas, though they my certainly arise. I will communicate clearly to my supervisor in case I don’t manage to create good enough code, and hopefully the team will have a good way of helping me learn how to code.
-
+This paper depend to a large part on my ability to create good enough
+code. I don't appreciate any significant problems regarding other areas,
+though they my certainly arise. I will communicate clearly to my
+supervisor in case I don't manage to create good enough code, and
+hopefully the team will have a good way of helping me learn how to code.
 
 *This is part C) in the project plan [sv: projektredogörelse]*
 
-References
-==========
+# References
 
 <!-- Do not edit by hand, references will be inserted and formatted automatically once you knit this document -->
