@@ -25,6 +25,8 @@ library(rofi)
 library(dplyr)
 library(gtsummary)
 library(labelled)
+library(knitr)
+
 
 # Import data
 data <- import_data(test = TRUE)
@@ -58,11 +60,39 @@ study.sample <- study.data |>
 # Label variables
 var_label(study.sample$pt_age_yrs) <- "Age in years"
 var_label(study.sample$ofi) <- "Opportunities for improvement"
+var_label(study.sample$inj_mechanism) <- "Injury mechanism"
+var_label(study.sample$pt_Gender) <- "Gender"
+var_label(study.sample$pt_asa_preinjury) <- "ASA-score"
+var_label(study.sample$ed_gcs_sum) <- "GCS at arrival"
+var_label(study.sample$ed_sbp_value) <- "Blood pressure at arrival"
+var_label(study.sample$ed_rr_value) <-  "Respiratory rate at arrival"
+var_label(study.sample$ed_be_art) <- "Base excess at arrival"
+var_label(study.sample$ISS) <- "ISS"
+var_label(study.sample$host_care_level) <- "Highest level of hospital care"
+var_label(study.sample$res_survival) <- "30 day survival rate"
+
+          
+        
+            
+
+
+
+
+
 
 # Create a table of sample characteristics
 sample.characteristics.table <- tbl_summary(study.sample,
                                             by = ofi)
-  
+
+
+
+viewtable <- kable(sample.characteristics.table, caption = "Study sample by OFI")
+
+print(viewtable)
+
+
+
+
 # These are my dataframes, vectors and so on
 
 # First I need to include the vectors I need to use in my dataframe. 
@@ -73,27 +103,27 @@ sample.characteristics.table <- tbl_summary(study.sample,
 # a patient in different vectors (fmp_scramblec, atgarder_scrambel, and so on)
 
 # make numeric from charcter
-newNiss <- as.numeric(NISS)
-newISS <- as.numeric(ISS)
-newhost_care_level <- as.numeric(host_care_level)
+#newNiss <- as.numeric(NISS)
+#newISS <- as.numeric(ISS)
+#newhost_care_level <- as.numeric(host_care_level)
 
 
 #Exclude NA 
-newNiss2 <- na.exclude(newNiss)
-newISS2 <- na.exclude(newISS)
-newhost_care_level2 <- na.exclude(newhost_care_level)
+#newNiss2 <- na.exclude(newNiss)
+#newISS2 <- na.exclude(newISS)
+#newhost_care_level2 <- na.exclude(newhost_care_level)
 
 
 
 # test the possibility of my dataframe with only 3 vectors.
 # here I could add OFI and hosp care level.
-DataFrame1 <- data.frame(newhost_care_level2, newNiss2, newISS2)
+#DataFrame1 <- data.frame(newhost_care_level2, newNiss2, newISS2)
 
 
 
 #Try to find some correlation
-correlations <- sapply(DataFrame1, function(x) cor(DataFrame1$host_care_level2, x))
-correlations
+#correlations <- sapply(DataFrame1, function(x) cor(DataFrame1$host_care_level2, x))
+#correlations
 # I failed with this code, NA creates problems for me. I will continue working
 # and try to fix it
 
