@@ -37,6 +37,9 @@ merged.data <- merge_data(data, test = TRUE)
 # Add the OFI outcome
 merged.data$ofi <- create_ofi(merged.data)
 
+#create OFI variable
+merged.data <- add_ofi_categories(merged.data) 
+
 # Select variables, this is just an example. The function select comes from the 
 # dplyr package
 study.data <- merged.data |> 

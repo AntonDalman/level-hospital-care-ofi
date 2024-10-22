@@ -1,7 +1,7 @@
 output:word---
-title: "Manuscript title here"
+title: "Association between level of hospital care and opportunities for improvement in adult trauma patients"
 subtitle: "Add a Subtitle if Needed"
-author: "Your name here"
+author: "Anton Dalman"
 bibliography: bibliography.bib
 csl: vancouver.csl
 knit: (function(inputFile, encoding) {
@@ -35,129 +35,33 @@ the console and you should only see headings -->
 
 *This is part A) in the project plan [sv: projektredogörelse].*
 
-Background Trauma is a global issue affecting millions of people every
-year worldwide. The exact numbers differ due to different methods of
-gathering data, and data availability. Worldwide, somewhere between 4-6
-million people die every year due to trauma, and around 40 million get
-permanently injured and 100 million people get temporarily injured each
-year (cite). In Sweden, during 2023, 5221 people died due to trauma
-(cite)The level of care a trauma patient receive can differ between
-hospitals, regions and countries. The level of care can differ according
-to severity of injury, but also according to local regulations, space
-and economical concerns. Level of care can be summarized according to
-five categories. In order of most care to least care is emergency
-department, general ward, operating theatre, high dependency unit and
-critical care unit. These are based on the Utstein template for
-reporting trauma and are logged in the Karolinska Hospital trauma
-registry which will be used for this article. The American college of
-surgeons (ACS) also have a template which divide patient care in levels
-from I-V. I is comparable to a large hospital with best of the line
-trauma care, including a critical care unit, while V is more comparable
-to a smaller regional emergency centre (CITE). Several studies have been
-made on the subject of levels of care on these care levels and will be
-discussed in the discussion part of this article, despite the difference
-between ACS care levels and the Utstein template. Depending on the
-severity of the injury each patient supposedly ends up in a higher care
-level. A higher care level equals more doctors, nurses and staff, as
-well as access to more complex machinery. However, it also equals a
-higher cost, and a larger drain of resources. In Sweden, as well as
-worldwide (cite/cite), triage is used in order for a patient to end up
-at the right care level. There is always however risk for under- or over
-triage. In general, both in Sweden and worldwide, we would prefer to
-over triage patients rather than under triage them. This means that we
-would rather a less severe patient end up in higher-level care than a
-more severe patient end up in a lower level of care. In Sweden during
-2018, 49.9% of patients were over triaged while 11.2% were under triaged
-(CITE). The authors of this study discussed that these numbers may not
-be completely representative of the data due to changes in how to
-measure triage, however the same general trend would show, were under
-triage is generally rather uncommon compared to over triage. This is
-comparable to numbers globally. The risk of under triaging patient
-equals a higher mortality rate (CITE), a higher morbidity rate (CITE),
-as well as a high economical burden. Compared to over triaging patients,
-the risk of morbidity and mortality decrease but the risk of high cost
-remains. Since it's more common to over triage a patient compared to the
-opposite, the higher economical cost comes from over triaging. Triage is
-a large part of why a patient ends up in a specific care level, and may
-be a large part of were opportunities for improvement may be found. It's
-not the only one, however. Within different level of care, there are
-different sources of improvement opportunities.
 
-Each of these categories possibly have their own set of problems and
-opportunities for improvement. According to study (cite), many patients
-stay too long in the emergency ward before reaching the level of care
-required for treatment. On the other hand, studies show (cite) that
-there is a correlation with a longer stay in a critical care unit and
-patient recovery. We will discuss reasons for this in the discussion
-part of this paper.\
-In this paper we aim at looking at opportunities for improvement
-regarding level of care. Opportunities for improvement can be
-categorized as factors affecting morbidity and mortality. We will also
-discuss whether patients end up in the right care level according to the
-severity of their injuries, or if they end up in a potentially higher
-care level then required, thus costing money and resources.
-Opportunities for improvement is since 2017 measured by a specialized
-nurse, who in Karolinska hospital reviews all trauma patient cases and
-flags cases where OFI might be found. The cases flagged then get
-reviewed at a deeper level by another specialized nurse, and the cases
-where OFI might be found gets reviewed by a multidisciplinary
-conference, where cases are either admitted or discarded. All patients
-dying due to trauma are also discussed in a conference where OFI is also
-discussed. Before 2017 OFI was decided by a smaller group of clinicians
-(HAR EJ KÄLLA PÅ DETTA, ÄR DET OK ATT ANVÄNDA HUSSEINS ARTIKEL?)
-Opportunities for improvement include factors affecting mortality and
-morbidity. The ones included are the following: clinical judgment
-errors, delays in treatment or diagnosis, missed diagnoses, technical
-errors, preventable deaths and other errors. Clinical judgment errors
-are somewhat common in the emergency ward, according to a systematic
-review published in 2022. There 5.7 percent of patients had at least one
-diagnostical error, resulting in harm becoming 2 percent of patients and
-death in about 0.2. These percentages are low, but due to the traffic
-emergency wards receive -- about 130 million patients every year in the
-US, which means that 7 millions of these are misdiagnosed, resulting in
-harming 2.5 million and resulting in 350 000 deaths (CITE). Around 5%-
-10% of autopsied patients show signs of misdiagnosis being a
-contributing factor for the patients death (cite). A study of 300 000
-new York hospital cases found that 14% of errors where diagnostic in
-nature (CITE).
+Background
+Trauma, globally and in Sweden
+Trauma is an injury due to accident or violence, often happening suddenly [@Dumovich2024-wn]. Trauma is commonly divided in three groups, blunt force, penetrating force and brain injury, but a patient in a trauma setting may suffer from all three of these. A dreaded consequence of trauma is haemorrhagic shock, which is when organs in the body start shutting down as a consequence of blood loss [@noauthor_undated-yj]. Globally there exist several trauma registries which are used to collect data regarding trauma treatment and patient outcomes [@Moore2008-nn]. 
+Trauma is a global issue affecting millions of people every year worldwide. The exact numbers differ due to different methods of gathering data, and data availability. Worldwide, somewhere between 4-6 million people die every year due to trauma, and around 40 million get permanently injured and 100 million people get temporarily injured each year [@Murray2022-o]. In Sweden, during 2023, 5221 people died due to external cause of death [@noauthor_undated-yp]. The level of care a trauma patient receives can differ between hospitals, regions and countries. The level of care can differ according to severity of injury, but also according to local regulations, space and economical concerns. 
+Trauma care modalities commonly used are x-ray, bedside ultrasound and CT-scan in order to locate bleeding [@James2024-op]. Trauma care is ideally carried out by a trained team, and in accordance with a concept such as the ATLS-concept. 
+There exists several trauma registries worldwide, which are used in order to evaluate trauma care and in order to improve trauma care [@Moore2008-nn]. These registries commonly contain patient information, such as sex, age, type of injury, as well as morbidity and mortality outcomes. The Karolinska Hospital trauma center have a trauma registry where opportunities for improvement and level of care is included, among other variables [@Albaaj2023-el].  
+Opportunities for improvement 
+Opportunities for improvement (OFI) can be defined as “preventable factors affecting morbidity and mortality”. The factors included in are the following: “clinical judgement errors, delays in treatment or diagnosis, missed diagnoses, technical errors, preventable deaths and other errors” [@Oreilly2013-ps]. OFI or OFI-like parameters are commonly logged in trauma registries. OFI-like parameters can be variables such as adverse events, defined as “a harmful and negative outcome which happens when a patient has been provided with medical care” [@Skelly2024-jj]. Adverse events is a commonly used parameter in various studies. 
+Levels of care and opportunities for improvement
+Level of care can be summarised according to five categories. In order of most care to least care is “emergency department, general ward, operating theatre, high dependency unit and critical care unit”. These are based on the Utstein template [@Ringdal2008-du], a template used in trauma registries for reporting several trauma care variables. Depending on the severity of the injury each patient supposedly ends up in a higher care level. A higher care level equals more doctors, nurses and staff, as well as access to more complex machinery. However, it also equals a higher cost, and a larger drain of resources. 
+There are many studies on OFI, or OFI-like factors in the emergency room and operative theatre, but not many in the general ward and in the high dependency ward, thus it’s hard to generalize about specific OFI at these levels of care according to previous articles. 
+Emergency ward and diagnostical error
+Clinical judgement errors are somewhat common in the emergency ward, according to a systematic review published in 2022 [@Newman-Toker2022-xc]. In the study 5.7% of patients had at least one diagnostic error, resulting in harm becoming 2% of patients and death in about 0.2%. These percentages are low, but due to the amount of traffic emergency wards receive – about 130 million patients every year in the US, this results in 7 million patients misdiagnosed, harm becoming 2.5 million and 350 000 patients dying. Overall in a hospital setting, around 5%- 10% of autopsied patients show signs of misdiagnosis being a contributing factor for the patient death [@Graber2005-kg]. A study of 300 000 new York hospital cases found that 14% of errors were diagnostic in nature [@Clark2018-kr].   
+Operative theatre
+Adverse events due to surgery was deemed the highest risk of adverse events in a hospital setting according to one paper [@noauthor_undated-gk] in which 66% of adverse events happened in a surgical setting. The article discusses that  around 50% of these adverse events were preventable. In a systematic review containing 16424 surgical patients, 14.4% of patients experienced adverse events and 50% of these were deemed avoidable [@Anderson2013-ez]. 
+Intensive care unit
+In a study from 2005, 50 errors involving 32 patients were made by doctors in an ICU setting [@Graf2005-ji]. These errors resulted in a higher mortality rate (38% vs 9%). The errors were categorised as human failures in 73% of cases, and as avoidable in 92%. In a Swedish study involving 128 patients where the patients had died following or during ICU care, 22 patients having suffered avoidable adverse events were identified [@Nilsson2012-bn]. 
 
-Data that separates where the error has happened and where the greatest
-chance of OFI exist are rare. There are many studies on errors in the
-emergency room, but not many describing specific instances of error in
-the general ward. Adverse events, defined as "a harmful and negative
-outcome which happens when a patient has been provided with medical
-care" have been used in many studies (CITE). Adverse events due to
-surgery was deemed the highest risk of adverse events in a hospital
-setting according to paper (CITE) in where, 66% of adverse events
-happened in a surgical setting, and the article discussed that around
-50% of these adverse events were preventable.\
-Data about doctor error in the High-dependency unit is rare and seems
-not to have been studied specifically, thus it's hard to generalize
-about specific OFI at this care level according to previous articles. In
-an older study from 2005, 50 errors involving 32 patients were made by
-doctors in an ICU setting. These errors resulted in a higher mortality
-rate (38% vs 9%). The errors were categorized as human failures in 73%
-of cases, and as avoidable in 92% (CITE) A Swedish study involving 128
-patient cases where the patients had died following ICU care, 22
-patients having suffered avoidable adverse events were identified
-(CITE). According to a study based on 35311 trauma patients being
-treated from years 1998-2005, 2081 patients died and 51 patients deaths
-were deemed to be possibly preventable. 28 (54.9%) of these patients
-died in the ICU, 13 (25.5%) patients died in the opertating room and 5
-(9.8%) died in the emergency room (CITE). All in all, according to World
-health organisation, 1 in 10 patients are negatively impacted by doctor
-error (CITE). More studies related to doctor error have been conducted
-in the emergency ward setting, the operating theatre and the intensive
-care unit compared to the general ward and the high-dependency unit.
-This might point to the fact that there may be a larger amount of
-opportunities for improvement in these less studied cohorts.
+Area of further research
+In a study based on 35311 trauma patients being treated from years 1998-2005, 2081 patients died. 51 patients’ deaths were deemed to be possibly preventable. 28 (54.9%) of these patients died in the ICU, 13 (25.5%) patients died in the operating room and 5 (9.8%) died in the emergency room [@Teixeira2007-dz]. All in all, according to the World Health Organisation, 1 in 10 patients are negatively impacted by doctor error [@noauthor_undated-if]. 
+More studies related to doctor error have been conducted in the emergency ward setting, the operating theatre and the intensive care unit compared to the general ward and the high-dependency unit. This might point to the fact that there may be possible to affect a larger number of opportunities for improvement in these less studied cohorts.
+There have been several studies previously regarding OFI and OFI-like factors in a trauma setting, but few studies with the direct focus on how OFI relates to care level. Previous studies show that there exists a connection between OFI and level of care [@Albaaj2023-el], but this connection has not been examined directly. There exist studies on specific OFI or OFI-like factors in specific levels of care, but there have not been any systematic approaches made were the same measure for OFI gets compared across different care levels. 
+Aim
+The aim of this study is to determine the number of opportunities for improvement in each level of in-hospital care, and how patient factors are associated with these opportunities at each level.
 
-*The background/introduction should summarise the scope of the problem,
-what is known about the problem, what is not known, what specific
-knowledge gap the study is supposed to fill and why this is important.
-It should end be stating the aim of the study. The background should be
-4-5 paragraphs long and each paragraph should be between 3-5 sentences.
-Strive to make the paragraphs about the same length.*
+
 
 *bibliography.bib includes an example reference. Add additional
 references in that file as bibtex entries and then cite in text using:
@@ -169,20 +73,27 @@ Copy to export to bibtex
 
 # Methods
 
-To answer these questions, we will use the trauma care quality database
-and trauma registry from Karolinska University hospital. Using these two
-databases we will conduct a registry-based cohort study. The data
-available in the trauma registry includes 14000 trauma patients and is
-logged from the years 2012-2023. The data from the trauma care quality
-database is a subset of the same data containing 8000 patients where
-opportunities for improvement have also been logged. This project will
-examine whether there are specific opportunities for improvement in
-regards to the level of care these patients received. RStudio will be
-used in order to extract the data needed to answer these questions.
-Relevant literature will be found on Pubmed using relevant search
-queries, including but not limited to "trauma", "level of care" and
-"improvement". A 5% significance level and 95% confidence levels will be
-used.
+Study design
+This is a registry-based cohort study. 
+Setting
+This study will be conducted using data collected at Karolinska University Hospital trauma center, a level I trauma center [@noauthor_undated-xw]. Opportunities for improvement are since 2017 in Karolinska Hospital measured by a specialised nurse, who reviews all trauma patient cases and flags cases where OFI might be found [@Albaaj2023-el]. The cases flagged then get reviewed at a deeper level by another specialised nurse, and the cases where OFI might be found gets reviewed by a multidisciplinary conference, where cases are either admitted or discarded. All patients dying due to trauma are also discussed in a conference where OFI is also discussed. Before 2017 OFI was decided by a small group of clinicians.
+We will use the trauma care quality database and trauma registry from Karolinska University hospital in this paper. The data available in the trauma registry includes 14000 trauma patients and is logged from the years 2012-2023. The data from the trauma care quality database is a subset of the same data containing 8000 patients where opportunities for improvement have also been logged. The data contains information according to the Utstein template, which includes factors such as Glasgow come scale, systolic blood pressure and respiratory rate [@Ringdal2008-du]. 
+Participants 
+The patients included are all above the age of 15, with an ISS greater than 9 or patients with a trauma team activation upon hospital arrival. Excluded patients were younger than 15 or dead on arrival. 
+Outcome measures
+The first outcome measure is the number of opportunities for improvement at each level of care. Which patient factors correlate with what level of care and number of OFI will be measured secondarily.  
+Variables
+Our outcome is measured specifically in regard to level of in hospital care, which means that several variables need to be taken into account. The following patient factors will be included: patient age, injury mechanism, ASA score preinjury, Glascow come scale at arrival to hospital, systolic blood pressure at arrival, respiratory rate at arrival, base excess at arrival, injury severity score (ISS), highest level of in hospital care and OFI. Level of hospital care is numbered from 1-5, with 1 representing the emergency ward, 2 representing the general ward, 3 representing the operative theatre, 4 representing the high dependency unit and 5 representing the intensive care unit. 
+Statistical analysis
+R will be used for the statistical analysis. Unadjusted and adjusted logistic regression will be used to determine the associations between level of care and opportunities for improvement. Multivariable logistic regression, and bivariable logistic regression will be used. Synthetic data will be used when developing the code required to extract data. When this code is deemed functional, it will be implemented on the real data. This is done to decrease risk of bias. A 5% significance level and 95% confidence levels will be used in this paper.
+Ethical permit and consideration
+Ethical permit: 2021-02541, 2021-03531 and 2023-02975-02
+Patients included in this study have had their personal identification number replaced with a study number in order to hinder the possibility of identifying specific patients. However, the data used in this project contains a lot of patient information. Putting together the different variables used may make it possible to identify a specific patient. Care has been taken in order not to spread the data by working on a password protected secured server.  
+Patients included in the trauma registry have not needed to consent to be included in the registry. All included patients have been informed of their participation and have had the opportunity to opt out of the registry. 
+The trauma registry used in this study is run by employees of the hospital evaluated by the registry. This means that there is the possibility that information in the registry that puts the hospital in a bad light may have been excluded from the registry, either consciously or unconsciously. In order to minimize the risk of this the group working with the trauma registry work independently of the rest of the hospital. Internal regulations are also in place, such as the OFI variable being examined in connection with all trauma patients who die in the hospital. 
+The purpose of this study is to improve the quality of care for trauma patients. There are no apparent risks that this study may be used for malicious use. It is possible that this study may be used for future commercial use by a private health centre. This would most likely be to the benefit of the patients in this health centre and is therefore not a valid reason for not publishing this study.
+The goal of this study is to find out how OFI differ between care levels and examine why OFI differ. This study is part of a large group of studies with the purpose of examining OFI in trauma patients. The eventual goal of this entire project is to reduce OFI in trauma patients, thus enabling better trauma care and likely improving mortality and morbidity.
+
 
 *Refer to the appropriate reporting guideline for details. If you are
 developing, updating or validating a clinical prediction model then use
