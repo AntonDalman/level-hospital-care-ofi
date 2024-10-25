@@ -50,11 +50,13 @@ study.data <- merged.data |>
          ed_gcs_sum,
          ed_sbp_value,
          ed_rr_value,
-         ed_be_art,
          ISS,
          host_care_level,
          res_survival,
-         ofi)
+         ofi,
+         ofi.categories.broad,
+         ofi.categories.detailed)
+
 
 # Exclude patients who were not reviewed for the presence of OFI
 study.sample <- study.data |>
@@ -94,41 +96,37 @@ viewtable <- kable(sample.characteristics.table, caption = "Study sample by OFI"
 print(viewtable)
 
 
+#make ofi into numeric from character
+study.sample <- study.sample %>%
+  mutate(ofi_numeric = ifelse(ofi == "Yes", 1, 0))
+
+#see if there is any correlation between OFI and 30 day survival
+correlation1 <- cor(study.sample$ofi_numeric, study.sample$res_survival, use = "complete.obs")
 
 
-# These are my dataframes, vectors and so on
+# Scatter plot test
+plot(study.sample$ed_sbp_value, study.sample$ISS, main = "Scatter Plot test", 
+          xlab = "var1", 
+          ylab = "var2", 
+          pch = 1,
+          col = "blue",
+     abline(lm(ISS ~ ed_sbp_value, data = study.sample), col = "red"))
 
-# First I need to include the vectors I need to use in my dataframe. 
-# I will add more vectors when I have which ones I should use. 
-# the vectors added are: host_care_level - I have interpreted this to mean
-# hospital care level
-# I have also added personnummer. Unclear if this is the best way of following 
-# a patient in different vectors (fmp_scramblec, atgarder_scrambel, and so on)
+#Bivariable logistic regression using OFI, Host_care_level, OFI as outcome
+BivariableLR <- glm(ofi_numeric ~ host_care_level, data = study.sample, family = binomial)
 
-# make numeric from charcter
-#newNiss <- as.numeric(NISS)
-#newISS <- as.numeric(ISS)
-#newhost_care_level <- as.numeric(host_care_level)
-
-
-#Exclude NA 
-#newNiss2 <- na.exclude(newNiss)
-#newISS2 <- na.exclude(newISS)
-#newhost_care_level2 <- na.exclude(newhost_care_level)
+#making the OFI.broad into numeric
+word_to_numeric1 <- c("Clinical judgement error" = 1, "Inadequate resources" = 2,
+                      "Inadequate protocols" = 3, "Other errors" = 4 
+                      ) 
+study.sample$ofi.broad.numeric <- word_to_numeric1[study.sample$ofi.categories.broad]
 
 
-
-# test the possibility of my dataframe with only 3 vectors.
-# here I could add OFI and hosp care level.
-#DataFrame1 <- data.frame(newhost_care_level2, newNiss2, newISS2)
+#multivariable logistic regression using type of OFI(broad), host_care_level
+# outcome is 30 day survival. Next on the list to do. 
 
 
-
-#Try to find some correlation
-#correlations <- sapply(DataFrame1, function(x) cor(DataFrame1$host_care_level2, x))
-#correlations
-# I failed with this code, NA creates problems for me. I will continue working
-# and try to fix it
-
-
-
+#useful code for copy paste, will not be included
+unique_values1 <- unique(study.sample$ofi.categories.broad)
+num_unique_values1 <- length(unique_values1)
+print(num_unique_values1)
