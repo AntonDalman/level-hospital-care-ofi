@@ -37,30 +37,35 @@ merged.data <- merge_data(data, test = TRUE)
 # Add the OFI outcome
 merged.data$ofi <- create_ofi(merged.data)
 
-#create OFI variable
-merged.data <- add_ofi_categories(merged.data) 
+# create OFI variable
+merged.data <- add_ofi_categories(merged.data)
 
-# Select variables, this is just an example. The function select comes from the 
+# Select variables, this is just an example. The function select comes from the
 # dplyr package
-study.data <- merged.data |> 
-  select(pt_age_yrs, 
-         pt_Gender, 
-         inj_mechanism, 
-         pt_asa_preinjury, 
-         ed_gcs_sum,
-         ed_sbp_value,
-         ed_rr_value,
-         ISS,
-         host_care_level,
-         res_survival,
-         ofi,
-         ofi.categories.broad,
-         ofi.categories.detailed)
+study.data <- merged.data |>
+  select(
+    pt_age_yrs,
+    pt_Gender,
+    inj_mechanism,
+    pt_asa_preinjury,
+    ed_gcs_sum,
+    ed_sbp_value,
+    ed_rr_value,
+    ISS,
+    host_care_level,
+    res_survival,
+    ofi,
+    ofi.categories.broad,
+    ofi.categories.detailed
+  )
 
 
 # Exclude patients who were not reviewed for the presence of OFI
 study.sample <- study.data |>
   filter(!is.na(ofi))
+
+# Label levels
+study.sample$pt_Gender <- factor(study.sample$pt_Gender, levels = c(1, 2), labels = c("Male", "Female"))
 
 # Label variables
 var_label(study.sample$pt_age_yrs) <- "Age in years"
@@ -70,109 +75,106 @@ var_label(study.sample$pt_Gender) <- "Gender"
 var_label(study.sample$pt_asa_preinjury) <- "ASA-score"
 var_label(study.sample$ed_gcs_sum) <- "GCS at arrival"
 var_label(study.sample$ed_sbp_value) <- "Blood pressure at arrival"
-var_label(study.sample$ed_rr_value) <-  "Respiratory rate at arrival"
+var_label(study.sample$ed_rr_value) <- "Respiratory rate at arrival"
 var_label(study.sample$ed_be_art) <- "Base excess at arrival"
 var_label(study.sample$ISS) <- "ISS"
 var_label(study.sample$host_care_level) <- "Highest level of hospital care"
 var_label(study.sample$res_survival) <- "30 day survival rate"
 
-          
-        
-            
-
-
-
-
-
-
 # Create a table of sample characteristics
 sample.characteristics.table <- tbl_summary(study.sample,
-                                            by = ofi)
+  by = ofi
+) |> add_overall()
+
+# Descriptive data. These objects are used in the manuscript.Rmd file.
+ofi <- paste0(sum(study.sample$ofi == "Yes"), " (", round(sum(study.sample$ofi == "Yes") / nrow(study.sample) * 100, 2), "%)")
+age <- inline_text(sample.characteristics.table, "pt_age_yrs", column = stat_0)
+men <- inline_text(sample.characteristics.table, "pt_Gender", column = stat_0, level = "Male")
 
 
-
-viewtable <- kable(sample.characteristics.table, caption = "Study sample by OFI")
-
-print(viewtable)
-
-
-#make ofi into numeric from character, presence of OFI=1
+# make ofi into numeric from character, presence of OFI=1
 study.sample <- study.sample %>%
   mutate(ofi_numeric = ifelse(ofi == "Yes", 1, 0))
 
-#see if there is any correlation between OFI and 30 day survival
+# see if there is any correlation between OFI and 30 day survival
 correlation1 <- cor(study.sample$ofi_numeric, study.sample$res_survival, use = "complete.obs")
 
 
 # Scatter plot test
-plot(study.sample$ed_sbp_value, study.sample$ISS, main = "Scatter Plot test", 
-          xlab = "var1", 
-          ylab = "var2", 
-          pch = 1,
-          col = "blue",
-     abline(lm(ISS ~ ed_sbp_value, data = study.sample), col = "red"))
+plot(study.sample$ed_sbp_value, study.sample$ISS,
+  main = "Scatter Plot test",
+  xlab = "var1",
+  ylab = "var2",
+  pch = 1,
+  col = "blue",
+  abline(lm(ISS ~ ed_sbp_value, data = study.sample), col = "red")
+)
 
-#Bivariable logistic regression using OFI, Host_care_level, OFI as outcome
+# Bivariable logistic regression using OFI, Host_care_level, OFI as outcome
 BivariableLR <- glm(ofi_numeric ~ host_care_level, data = study.sample, family = binomial)
 
-#making the OFI.broad into numeric
-word_to_numeric1 <- c("Clinical judgement error" = 1, "Inadequate resources" = 2,
-                      "Inadequate protocols" = 3, "Other errors" = 4, "Missed diagnosis" = 5
-                      ) 
+# making the OFI.broad into numeric
+word_to_numeric1 <- c(
+  "Clinical judgement error" = 1, "Inadequate resources" = 2,
+  "Inadequate protocols" = 3, "Other errors" = 4, "Missed diagnosis" = 5
+)
 study.sample$ofi.broad.numeric <- word_to_numeric1[study.sample$ofi.categories.broad]
 
 
-#multivariable logistic regression using type of OFI(broad), host_care_level
+# multivariable logistic regression using type of OFI(broad), host_care_level
 # outcome is 30 day survival.
 
-#30 day survival. Changed 1(death)=0, 2(Alive)=1, 999(unknown)=NA, and excluded all NA
+# 30 day survival. Changed 1(death)=0, 2(Alive)=1, 999(unknown)=NA, and excluded all NA
 
 study.sample <- study.sample %>%
   mutate(res_survivalBinary = case_when(
     res_survival == 1 ~ 0,
     res_survival == 2 ~ 1,
-    TRUE ~ NA_real_  
+    TRUE ~ NA_real_
   )) %>%
-  filter(!is.na(res_survivalBinary))  
+  filter(!is.na(res_survivalBinary))
 
-#Convert from numeric into a factor
+# Convert from numeric into a factor
 study.sample$res_survivalBinary <- factor(study.sample$res_survivalBinary)
 study.sample$ofi.broad.numeric <- factor(study.sample$ofi.broad.numeric)
 study.sample$host_care_level <- factor(study.sample$host_care_level)
 
-BivariableLR2 <- glm(res_survivalBinary ~ ofi.broad.numeric + host_care_level, 
-                     data = study.sample, family = "binomial")
+BivariableLR2 <- glm(res_survivalBinary ~ ofi.broad.numeric + host_care_level,
+  data = study.sample, family = "binomial"
+)
 
 
-#categorizing OFI detailed and change into factor
+# categorizing OFI detailed and change into factor
 
-word_to_numeric2 <- c("Patient management/logistics" = 1, "Resources" = 2,
-                      "Patient management" = 3, "Logistics/technical" = 4, 
-                      "Triage in the ED" = 5, "Communication" = 6,
-                      "Level of care" = 7, "Trauma criteria/guidelines" = 8,
-                      "Missed injury" = 10, "Inadequate routine" = 11
-                      
-) 
+word_to_numeric2 <- c(
+  "Patient management/logistics" = 1, "Resources" = 2,
+  "Patient management" = 3, "Logistics/technical" = 4,
+  "Triage in the ED" = 5, "Communication" = 6,
+  "Level of care" = 7, "Trauma criteria/guidelines" = 8,
+  "Missed injury" = 10, "Inadequate routine" = 11
+)
 study.sample$ofi.detailed.numeric <- word_to_numeric2[study.sample$ofi.categories.detailed]
 study.sample$ofi.detailed.numeric <- factor(study.sample$ofi.detailed.numeric)
 
-#Making a logistical regression using one specific OFI at a time.
-# Here testing with 2, which is Resources. I could theoretically use 
+# Making a logistical regression using one specific OFI at a time.
+# Here testing with 2, which is Resources. I could theoretically use
 # 1=Patient management/logistics instead, or any other variable.
-# I can also add any other variable I want to. 
+# I can also add any other variable I want to.
 
-#create new "dataset"
+# create new "dataset"
 study.sample_filtered1 <- study.sample %>%
   filter(ofi.detailed.numeric == "2")
 
-#Run a logistical regression using that dataset with the outcome 30 day survival
+# Run a logistical regression using that dataset with the outcome 30 day survival
 ResourcesBivariableLR <- glm(res_survivalBinary ~ host_care_level,
-                     data = study.sample_filtered1, family = "binomial")
-#adding gender as well as a test
+  data = study.sample_filtered1, family = "binomial"
+)
+# adding gender as well as a test
 ResourcesBivariableLR2 <- glm(res_survivalBinary ~ host_care_level, pt_Gender,
-                             data = study.sample_filtered1, family = "binomial")
+  data = study.sample_filtered1, family = "binomial"
+)
 
-#useful code for copy paste, will not be included in final product like this
+# useful code for copy paste, will not be included in final product like this
 unique_values1 <- unique(study.sample$ofi.categories.broad)
 num_unique_values1 <- length(unique_values1)
 print(num_unique_values1)

@@ -50,13 +50,19 @@ what was done and what was found. Not more than 300 words. -->
 
 # Introduction
 
-Trauma is a global issue affecting millions of people every year worldwide . Globally somewhere between 4-6 million people die every year due to trauma, and around 40 million get permanently injured and 100 million people get temporarily injured each year [@Murray2022-od]. In Sweden, during 2023, 5221 people died due to trauma [@noauthor_undated-yp].
+Trauma is a global issue affecting millions of people every year worldwide. Globally somewhere between 4-6 million people die every year due to trauma, and around 40 million get permanently injured and 100 million people get temporarily injured each year [@Murray2022-od]. In Sweden, during 2023, 5221 people died due to trauma [@noauthor_undated-yp].
+
 In this paper, level of care will be categorized according to five categories in order of most care to least care, emergency department, general ward, operating theatre, high dependency unit and critical care unit. These are based on the Utstein template, a template used in trauma registries for reporting several trauma care variables [@Ringdal2008-du]. Depending on the severity of the injury each patient supposedly ends up in a higher care level. A higher care level equals more doctors, nurses and staff, as well as access to more complex machinery. However, it also equals a higher cost, and a larger drain of resources.
+
 Opportunities for improvement (OFI) can be defined as “preventable factors affecting morbidity and mortality”. The factors included in are the following: “clinical judgement errors, delays in treatment or diagnosis, missed diagnoses, technical errors, preventable deaths and other errors” [@Oreilly2013-ps]. OFI or OFI-like variables are commonly logged in trauma registries. OFI-like variables can be things such as adverse events, a “a harmful and negative outcome which happens when a patient has been provided with medical care”. 
+
 There exists several trauma registries worldwide, which are used in order to evaluate trauma care and in order to improve trauma care [@Moore2008-sp]. These registries commonly contain patient information, such as sex, age, type of injury, as well as morbidity and mortality outcomes. The Karolinska Hospital trauma center have a trauma registry where opportunities for improvement and level of care is included, among other variables [@Albaaj2023-el]. 
+
 Clinical judgement errors are somewhat common in the emergency ward, according to a systematic review published in 2022 [@Newman-Toker2022-xc]. In the study 5.7% of patients had at least one diagnostic error, resulting in harm becoming 2% of patients and death in about 0.2%. In the US, about 130 million patients every year goes to the emergency department, which results in 7 million patients misdiagnosed, harm becoming 2.5 million and 350 000 patients dying. In a systematic review containing 16424 surgical patients, 14.4% of patients experienced adverse events and 50% of these were deemed avoidable [@Anderson2013-ez]. In a study from 2005, 50 errors involving 32 patients were made by doctors in an ICU setting[@Graf2005-ji]. These errors resulted in a higher mortality rate (38% vs 9%). The errors were categorised as human failures in 73% of cases, and as avoidable in 92%. In
 More studies related to doctor error have been conducted in the emergency ward setting, the operating theatre and the intensive care unit compared to the general ward and the high-dependency unit. This might point to the fact that there may be possible to affect a larger number of opportunities for improvement in these less studied cohorts.
+
 There have been several studies previously regarding OFI and OFI-like factors in a trauma setting, but few studies with the direct focus on how OFI relates to care level. Previous studies show that there exists a connection between OFI and level of care [@Albaaj2023-el], but this connection has not been examined directly. There exist studies on specific OFI or OFI-like factors in specific levels of care, but there have not been any systematic approaches made were the same measure for OFI gets compared across different care levels. 
+
 The aim of this study is to determine the number of opportunities for improvement in each level of in-hospital care, and how patient factors are associated with these opportunities at each level.
 
 
@@ -168,6 +174,9 @@ taking account of sampling strategy
 ```
 # Results
 
+# Label levels
+study.sample$pt_Gender <- factor(study.sample$pt_Gender, levels = c("Male", "Female"))
+
 ```{=html}
 <!-- 
 
@@ -182,6 +191,8 @@ included in the study, completing follow-up, and analysed
 
 (c) Consider use of a flow diagram
 
+The trauma registry included `r nrow(merged.data)` patients, out of which `r nrow(study.sample)` patients had been reviewed for opportunities for improvement.  After excluding patients younger than 15 or dead on arrival, `r nrow(study.sample)` patients were included. The variable with most missing data was X with Y% missing data.
+
 Descriptive data
 ----------------
 
@@ -194,6 +205,12 @@ variable of interest
 
 (c) Cohort study — Summarise follow-up time (eg, average and total
 amount)
+
+Sample characteristics are shown in Table @ref(tab:sample-characteristics). A total of `r ofi` patients had at least one opportunity for improvement. The median (IQR) age of the patients was `r age` years. Most patients were `r men`.
+
+```{r sample-characteristics, echo=FALSE}
+sample.characteristics.table
+```
 
 Outcome data
 ------------
@@ -227,21 +244,12 @@ Report other analyses done—eg analyses of subgroups and interactions,
 and sensitivity analyses 
 -->
 ```
-You can include code in this document like this:
-
-```{r main, echo=FALSE}
-source("main.R") ## This "imports" the main script file of your project and run any code in it
-```
-
-
 
 You can also embed plots:
 
 ```{r plot, echo=FALSE}
 plot(pressure)
 ```
-
-You can also mix text and code, so called inline code, like this: `r 2+5`.
 
 # Discussion
 
