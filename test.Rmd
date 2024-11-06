@@ -3,8 +3,8 @@ title: Association between level of hospital care and opportunities for improvem
   in adult trauma patients
 author: "Anton Dalman"
 output:
-  html_document: default
   word_document: default
+  html_document: default
   pdf_document: default
 bibliography: bibliography.bib
 csl: vancouver.csl
@@ -178,12 +178,8 @@ taking account of sampling strategy
 -->
 ```
 # Results
-```{r main, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
-source("main.R") ## This "imports" the main script file of your project and run any code in it
-```
-# Label levels
-study.sample$pt_Gender <- factor(study.sample$pt_Gender, levels = c("Male", "Female"))
 
+# Label levels
 ```{=html}
 <!-- 
 
