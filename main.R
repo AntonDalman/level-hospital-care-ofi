@@ -29,10 +29,10 @@ library(knitr)
 library(nnet)
 
 # Import data
-data <- import_data(test = TRUE)
+data <- import_data()
 
 # Merge data
-merged.data <- merge_data(data, test = TRUE)
+merged.data <- merge_data(data)
 
 # Add the OFI outcome
 merged.data$ofi <- create_ofi(merged.data)
@@ -76,7 +76,7 @@ var_label(study.sample$pt_asa_preinjury) <- "ASA-score"
 var_label(study.sample$ed_gcs_sum) <- "GCS at arrival"
 var_label(study.sample$ed_sbp_value) <- "Blood pressure at arrival"
 var_label(study.sample$ed_rr_value) <- "Respiratory rate at arrival"
-#var_label(study.sample$ed_be_art) <- "Base excess at arrival"
+# var_label(study.sample$ed_be_art) <- "Base excess at arrival"
 var_label(study.sample$ISS) <- "ISS"
 var_label(study.sample$host_care_level) <- "Highest level of hospital care"
 var_label(study.sample$res_survival) <- "30 day survival rate"
@@ -145,16 +145,18 @@ study.sample$host_care_level <- factor(study.sample$host_care_level)
 study.sample$inj_mechanism <- factor(study.sample$inj_mechanism)
 study.sample$pt_Gender_numeric <- factor(study.sample$pt_Gender_numeric)
 
-study.sample$inj_mechanism <- factor(study.sample$inj_mechanism, 
-          levels = setdiff(levels(study.sample$inj_mechanism), c("999", NA)))
+study.sample$inj_mechanism <- factor(study.sample$inj_mechanism,
+  levels = setdiff(levels(study.sample$inj_mechanism), c("999", NA))
+)
 
 
 study.sample$pt_asa_preinjury <- factor(study.sample$pt_asa_preinjury)
 
-study.sample$pt_asa_preinjury <- factor(study.sample$pt_asa_preinjury, 
-                                     levels = setdiff(levels(study.sample$pt_asa_preinjury), c("999", NA)))
-#Filtered out 99 and 999 from ed_gcs, but kept it as a numeric variable.
-study.sample <- study.sample %>% 
+study.sample$pt_asa_preinjury <- factor(study.sample$pt_asa_preinjury,
+  levels = setdiff(levels(study.sample$pt_asa_preinjury), c("999", NA))
+)
+# Filtered out 99 and 999 from ed_gcs, but kept it as a numeric variable.
+study.sample <- study.sample %>%
   filter(!ed_gcs_sum %in% c(99, 999))
 
 study.sample$res_survival <- factor(study.sample$res_survival)
@@ -175,10 +177,12 @@ print(UnadjustedBivariableLRPrint)
 
 
 # Adjusted logistic regression, outcome OFI
-AdjustedBivariableLR <- glm(ofi_numeric ~ host_care_level + pt_age_yrs + pt_Gender_numeric + 
-                            pt_asa_preinjury + ed_gcs_sum + ed_sbp_value + ed_rr_value
-                            + inj_mechanism + ed_gcs_sum + ISS + res_survival , 
-                            data = study.sample, family = binomial)
+AdjustedBivariableLR <- glm(
+  ofi_numeric ~ host_care_level + pt_age_yrs + pt_Gender_numeric +
+    pt_asa_preinjury + ed_gcs_sum + ed_sbp_value + ed_rr_value
+    + inj_mechanism + ed_gcs_sum + ISS + res_survival,
+  data = study.sample, family = binomial
+)
 
 
 AdjustedBivariableLRprint <- tbl_regression(AdjustedBivariableLR)
@@ -198,33 +202,33 @@ word_to_numeric2 <- c(
 study.sample$ofi.detailed.numeric <- word_to_numeric2[study.sample$ofi.categories.detailed]
 study.sample$ofi.detailed.numeric <- factor(study.sample$ofi.detailed.numeric)
 
-#creating a multinominal regression
+# creating a multinominal regression
 multinom_ofi_broad_unadjusted <- multinom(ofi.detailed.numeric ~ host_care_level, data = study.sample)
 
 
-#creating a nice looking table similiar to gtsummary
+# creating a nice looking table similiar to gtsummary
 multinom_ofi_broad_unadjusted_summary <- summary(multinom_ofi_broad_unadjusted)
 
 # Extract coefficients, standard errors, and p-values
 multi_ofi_broad_coef <- multinom_ofi_broad_unadjusted_summary$coefficients
 multi_ofi_se <- multinom_ofi_broad_unadjusted_summary$standard.errors
 z_values <- multi_ofi_broad_coef[, 1] / multi_ofi_se[, 1]
-p_values <- 2 * pnorm(-abs(z_values))  
+p_values <- 2 * pnorm(-abs(z_values))
 
 # Convert to a data frame
 OFI_broad_Unadjusted_gtsummary <- data.frame(
   term = rownames(multi_ofi_broad_coef),
   coefficient = multi_ofi_broad_coef[, 1],
   std_error = multi_ofi_se[, 1],
-  p_value = 2 * (1 - pnorm(abs(multi_ofi_broad_coef[, 1] / multi_ofi_se[, 1]))),  # Two-tailed p-value
+  p_value = 2 * (1 - pnorm(abs(multi_ofi_broad_coef[, 1] / multi_ofi_se[, 1]))), # Two-tailed p-value
   stringsAsFactors = FALSE
 )
 
 # Summary table using gtsummary
 OFI_broad_Unadjusted_gtsummary %>%
   tbl_summary(
-    by = "term",  # Group by term (factor levels)
-    statistic = list(all_continuous() ~ "{mean} ({sd})"),  # Format for continuous values
+    by = "term", # Group by term (factor levels)
+    statistic = list(all_continuous() ~ "{mean} ({sd})"), # Format for continuous values
     label = list(coefficient ~ "Coefficient", std_error ~ "Standard Error", p_value ~ "p-value")
   ) %>%
   modify_caption("**Unadjusted Multinomial Logistic Regression Results**")
@@ -237,4 +241,3 @@ print(OFI_broad_Unadjusted_gtsummary)
 unique_values1 <- unique(study.sample$ofi.categories.broad)
 num_unique_values1 <- length(unique_values1)
 print(num_unique_values1)
-
