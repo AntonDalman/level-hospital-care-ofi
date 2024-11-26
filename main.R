@@ -18,7 +18,7 @@
 ## them). They all need to be sourced however when you compile your
 ## manuscript file or run this file as a job, as that happens in a
 ## clean R session.
-noacsr::source_all_functions()
+#noacsr::source_all_functions()
 
 # Load packages
 library(rofi)
@@ -27,12 +27,13 @@ library(gtsummary)
 library(labelled)
 library(knitr)
 library(nnet)
+library(gt)
 
 # Import data
-data <- import_data(test = TRUE)
+data <- import_data()
 
 # Merge data
-merged.data <- merge_data(data, test = TRUE)
+merged.data <- merge_data(data)
 
 # Add the OFI outcome
 merged.data$ofi <- create_ofi(merged.data)
@@ -76,7 +77,6 @@ var_label(study.sample$pt_asa_preinjury) <- "ASA-score"
 var_label(study.sample$ed_gcs_sum) <- "GCS at arrival"
 var_label(study.sample$ed_sbp_value) <- "Blood pressure at arrival"
 var_label(study.sample$ed_rr_value) <- "Respiratory rate at arrival"
-#var_label(study.sample$ed_be_art) <- "Base excess at arrival"
 var_label(study.sample$ISS) <- "ISS"
 var_label(study.sample$host_care_level) <- "Highest level of hospital care"
 var_label(study.sample$res_survival) <- "30 day survival rate"
@@ -85,6 +85,10 @@ var_label(study.sample$res_survival) <- "30 day survival rate"
 sample.characteristics.table <- tbl_summary(study.sample,
   by = ofi
 ) |> add_overall()
+
+print(sample.characteristics.table)
+
+
 
 # Descriptive data. These objects are used in the manuscript.Rmd file.
 ofi <- paste0(sum(study.sample$ofi == "Yes"), " (", round(sum(study.sample$ofi == "Yes") / nrow(study.sample) * 100, 2), "%)")
@@ -101,28 +105,28 @@ study.sample <- study.sample %>%
   mutate(pt_Gender_numeric = ifelse(pt_Gender == "Male", 1, 2))
 
 
-# see if there is any correlation between OFI and 30 day survival
-correlation1 <- cor(study.sample$ofi_numeric, study.sample$res_survival, use = "complete.obs")
-
-
-# Scatter plot test
-plot(study.sample$ed_sbp_value, study.sample$ISS,
-  main = "Scatter Plot test",
-  xlab = "var1",
-  ylab = "var2",
-  pch = 1,
-  col = "blue",
-  abline(lm(ISS ~ ed_sbp_value, data = study.sample), col = "red")
-)
-
-
-
 # making the OFI.broad into numeric
 word_to_numeric1 <- c(
   "Clinical judgement error" = 1, "Inadequate resources" = 2,
   "Inadequate protocols" = 3, "Other errors" = 4, "Missed diagnosis" = 5
 )
 study.sample$ofi.broad.numeric <- word_to_numeric1[study.sample$ofi.categories.broad]
+
+
+#create a table with how many OFI per level of care 
+carelevel_ofi <- study.sample[which(study.sample$ofi_numeric == 1), ]
+carelevel_ofi_table <- table(carelevel_ofi$host_care_level)
+carelevel_ofi_df <- as.data.frame(carelevel_ofi_table)
+
+carelevel_ofi_df %>%
+  gt() %>%
+  tab_header(
+    title = "How many OFI at each level of care"
+  ) %>%
+  cols_label(
+    Var1 = "Highest level of care",  
+    Freq = "Number of OFI"           
+  )
 
 
 # multivariable logistic regression using type of OFI(broad), host_care_level
@@ -161,15 +165,48 @@ study.sample$res_survival <- factor(study.sample$res_survival)
 
 study.sample$ofi_numeric <- factor(study.sample$ofi_numeric)
 
-BivariableLR2 <- glm(res_survivalBinary ~ ofi.broad.numeric + host_care_level,
-  data = study.sample, family = "binomial"
-)
-
 
 # Unadjusted bivariable logistic regression using OFI, Host_care_level, OFI as outcome
 UnadjustedBivariableLR <- glm(ofi_numeric ~ host_care_level, data = study.sample, family = binomial)
 
-UnadjustedBivariableLRPrint <- tbl_regression(UnadjustedBivariableLR)
+UnadjustedBivariableLRPrint <- tbl_regression(UnadjustedBivariableLR,
+                                              exponentiate = TRUE) %>%
+  as_gt() %>%
+  # Add a header to the table
+  tab_header(
+    title = "Unadjusted Bivariable Logistic Regression, with OFI as outcome and Highest level of care as predictor"
+  ) %>%
+  set_variable_labels(
+    host_care_level = "Highest level of hospital care"
+  ) %>% 
+  # Modify the row names using modify_table_body
+  modify_table_body(
+    rows = 1, 
+    columns = 1, 
+    value = "Emergency department"
+  ) %>%
+  modify_table_body(
+    rows = 2, 
+    columns = 1, 
+    value = "General ward"
+  ) %>%
+  modify_table_body(
+    rows = 3, 
+    columns = 1, 
+    value = "Operative theatre"
+  ) %>%
+  modify_table_body(
+    rows = 4, 
+    columns = 1, 
+    value = "High dependency unit"
+  ) %>%
+  modify_table_body(
+    rows = 5, 
+    columns = 1, 
+    value = "Intensive care unit"
+  )
+  
+
 print(UnadjustedBivariableLRPrint)
 
 
@@ -181,7 +218,8 @@ AdjustedBivariableLR <- glm(ofi_numeric ~ host_care_level + pt_age_yrs + pt_Gend
                             data = study.sample, family = binomial)
 
 
-AdjustedBivariableLRprint <- tbl_regression(AdjustedBivariableLR)
+AdjustedBivariableLRprint <- tbl_regression(AdjustedBivariableLR,
+                                            exponentiate = TRUE)
 print(AdjustedBivariableLRprint)
 
 
@@ -198,43 +236,19 @@ word_to_numeric2 <- c(
 study.sample$ofi.detailed.numeric <- word_to_numeric2[study.sample$ofi.categories.detailed]
 study.sample$ofi.detailed.numeric <- factor(study.sample$ofi.detailed.numeric)
 
-#creating a multinominal regression
-multinom_ofi_broad_unadjusted <- multinom(ofi.detailed.numeric ~ host_care_level, data = study.sample)
+#creating a multinominal regression broad
+multinom_ofi_broad_unadjusted <- multinom(ofi.broad.numeric ~ host_care_level, data = study.sample)
+
+#creating a multinominal regression detailed
+multinom_ofi_detailed_unadjusted <- multinom(ofi.detailed.numeric ~ host_care_level, data = study.sample)
+
 
 
 #creating a nice looking table similiar to gtsummary
-multinom_ofi_broad_unadjusted_summary <- summary(multinom_ofi_broad_unadjusted)
-
-# Extract coefficients, standard errors, and p-values
-multi_ofi_broad_coef <- multinom_ofi_broad_unadjusted_summary$coefficients
-multi_ofi_se <- multinom_ofi_broad_unadjusted_summary$standard.errors
-z_values <- multi_ofi_broad_coef[, 1] / multi_ofi_se[, 1]
-p_values <- 2 * pnorm(-abs(z_values))  
-
-# Convert to a data frame
-OFI_broad_Unadjusted_gtsummary <- data.frame(
-  term = rownames(multi_ofi_broad_coef),
-  coefficient = multi_ofi_broad_coef[, 1],
-  std_error = multi_ofi_se[, 1],
-  p_value = 2 * (1 - pnorm(abs(multi_ofi_broad_coef[, 1] / multi_ofi_se[, 1]))),  # Two-tailed p-value
-  stringsAsFactors = FALSE
-)
-
-# Summary table using gtsummary
-OFI_broad_Unadjusted_gtsummary %>%
-  tbl_summary(
-    by = "term",  # Group by term (factor levels)
-    statistic = list(all_continuous() ~ "{mean} ({sd})"),  # Format for continuous values
-    label = list(coefficient ~ "Coefficient", std_error ~ "Standard Error", p_value ~ "p-value")
-  ) %>%
-  modify_caption("**Unadjusted Multinomial Logistic Regression Results**")
-
-print(OFI_broad_Unadjusted_gtsummary)
+multinom_ofi_detailed_unadjustedy <- summary(multinom_ofi_detailed_unadjusted)
 
 
 
-# useful code for copy paste, will not be included in final product like this
-unique_values1 <- unique(study.sample$ofi.categories.broad)
-num_unique_values1 <- length(unique_values1)
-print(num_unique_values1)
+
+
 
