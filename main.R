@@ -77,10 +77,6 @@ var_label(study.sample$pt_asa_preinjury) <- "ASA-score"
 var_label(study.sample$ed_gcs_sum) <- "GCS at arrival"
 var_label(study.sample$ed_sbp_value) <- "Blood pressure at arrival"
 var_label(study.sample$ed_rr_value) <- "Respiratory rate at arrival"
-<<<<<<< HEAD
-=======
-# var_label(study.sample$ed_be_art) <- "Base excess at arrival"
->>>>>>> 9d0e3317bdd2402da6eedd0b60961c8ebc09059b
 var_label(study.sample$ISS) <- "ISS"
 var_label(study.sample$host_care_level) <- "Highest level of hospital care"
 var_label(study.sample$res_survival) <- "30 day survival rate"
@@ -241,64 +237,218 @@ word_to_numeric2 <- c(
   "Level of care" = 7, "Trauma criteria/guidelines" = 8,
   "Missed injury" = 10, "Inadequate routine" = 11
 )
-study.sample$ofi.detailed.numeric <- word_to_numeric2[study.sample$ofi.categories.detailed]
-study.sample$ofi.detailed.numeric <- factor(study.sample$ofi.detailed.numeric)
-
-<<<<<<< HEAD
-#creating a multinominal regression broad
-multinom_ofi_broad_unadjusted <- multinom(ofi.broad.numeric ~ host_care_level, data = study.sample)
-
-#creating a multinominal regression detailed
-multinom_ofi_detailed_unadjusted <- multinom(ofi.detailed.numeric ~ host_care_level, data = study.sample)
 
 
+#Multinominal code below
 
-#creating a nice looking table similiar to gtsummary
-multinom_ofi_detailed_unadjustedy <- summary(multinom_ofi_detailed_unadjusted)
+study.sample[is.na(study.sample$ofi.categories.broad),"ofi.categories.broad"] <- "no ofi"
 
-
-
-
-
-
-=======
-# creating a multinominal regression
-multinom_ofi_broad_unadjusted <- multinom(ofi.detailed.numeric ~ host_care_level, data = study.sample)
-
-
-# creating a nice looking table similiar to gtsummary
-multinom_ofi_broad_unadjusted_summary <- summary(multinom_ofi_broad_unadjusted)
-
-# Extract coefficients, standard errors, and p-values
-multi_ofi_broad_coef <- multinom_ofi_broad_unadjusted_summary$coefficients
-multi_ofi_se <- multinom_ofi_broad_unadjusted_summary$standard.errors
-z_values <- multi_ofi_broad_coef[, 1] / multi_ofi_se[, 1]
-p_values <- 2 * pnorm(-abs(z_values))
-
-# Convert to a data frame
-OFI_broad_Unadjusted_gtsummary <- data.frame(
-  term = rownames(multi_ofi_broad_coef),
-  coefficient = multi_ofi_broad_coef[, 1],
-  std_error = multi_ofi_se[, 1],
-  p_value = 2 * (1 - pnorm(abs(multi_ofi_broad_coef[, 1] / multi_ofi_se[, 1]))), # Two-tailed p-value
-  stringsAsFactors = FALSE
+study.sample$ofi.categories.broad <- as.factor(study.sample$ofi.categories.broad)
+#model.data$cohort <- as.factor(model.data$cohort)
+study.sample$host_care_level <- factor(
+  study.sample$host_care_level,
+  levels = c(1, 2, 3, 4, 5),
+  labels = c("Emergency Care", "General Ward", "Operation Theater", 
+             "Intermediate Care", "ICU")
 )
 
-# Summary table using gtsummary
-OFI_broad_Unadjusted_gtsummary %>%
-  tbl_summary(
-    by = "term", # Group by term (factor levels)
-    statistic = list(all_continuous() ~ "{mean} ({sd})"), # Format for continuous values
-    label = list(coefficient ~ "Coefficient", std_error ~ "Standard Error", p_value ~ "p-value")
+#Ensure both variables are factors and set reference
+#model.data$cohort <- relevel(as.factor(model.data$cohort), ref = "other cohort")
+study.sample$ofi.categories.broad <- relevel(as.factor(study.sample$ofi.categories.broad), ref = "no ofi")
+study.sample$host_care_level <- relevel(as.factor(study.sample$host_care_level), ref = "General Ward")
+
+
+#Fit the multinomial logistic
+multinom_model1 <- multinom(ofi.categories.broad ~ host_care_level, data = study.sample)
+
+model_summary1 <- tbl_regression(multinom_model1, exponentiate = TRUE, include = everything()) %>%
+  modify_header(label = "Variable") %>%
+  modify_caption("Multinomial Logistic Regression Results - Model 1") %>%
+  bold_labels() %>%
+  bold_levels() %>%
+  bold_p() %>%
+  modify_header(label ~ "Opportunity for improvement") %>%
+  add_nevent(location = "level") %>%
+  add_n(location = "level") %>%
+  # adding event rate
+  modify_table_body(
+    ~ .x %>% 
+      dplyr::mutate(
+        stat_nevent_rate = 
+          ifelse(
+            !is.na(stat_nevent),
+            paste0(style_sigfig(stat_nevent / stat_n, scale = 100), "%"),
+            NA
+          ), 
+        .after = stat_nevent
+      )
   ) %>%
-  modify_caption("**Unadjusted Multinomial Logistic Regression Results**")
+  # merge the colums into a single column
+  modify_column_merge(
+    pattern = "{stat_nevent} / {stat_n} ({stat_nevent_rate})",
+    rows = !is.na(stat_nevent)
+  ) %>%
+  # update header to event rate
+  modify_header(stat_nevent = "Event Rate") %>%
+  modify_table_body(
+    ~ .x |> 
+      dplyr::filter(!(variable %in% "host_care_level" & row_type %in% "label"))
+  ) 
 
-print(OFI_broad_Unadjusted_gtsummary)
+
+model_summary1
+
+
+#TEstcode 2 adjusted multinominal
+
+#Fit the multinomial logistic
+multinom_model2 <- multinom(ofi.categories.broad ~ host_care_level + pt_age_yrs + pt_Gender_numeric +
+                              pt_asa_preinjury + ed_gcs_sum + ed_sbp_value + ed_rr_value
+                            + inj_mechanism + ed_gcs_sum + ISS + res_survival, data = study.sample)
+
+model_summary2 <- tbl_regression(multinom_model2, exponentiate = TRUE, include = everything()) %>%
+  modify_header(label = "Variable") %>%
+  modify_caption("Multinomial Logistic Regression Results - Model 1") %>%
+  bold_labels() %>%
+  bold_levels() %>%
+  bold_p() %>%
+  modify_header(label ~ "Opportunity for improvement") %>%
+  add_nevent(location = "level") %>%
+  add_n(location = "level") %>%
+  # adding event rate
+  modify_table_body(
+    ~ .x %>% 
+      dplyr::mutate(
+        stat_nevent_rate = 
+          ifelse(
+            !is.na(stat_nevent),
+            paste0(style_sigfig(stat_nevent / stat_n, scale = 100), "%"),
+            NA
+          ), 
+        .after = stat_nevent
+      )
+  ) %>%
+  # merge the colums into a single column
+  modify_column_merge(
+    pattern = "{stat_nevent} / {stat_n} ({stat_nevent_rate})",
+    rows = !is.na(stat_nevent)
+  ) %>%
+  # update header to event rate
+  modify_header(stat_nevent = "Event Rate") %>%
+  modify_table_body(
+    ~ .x |> 
+      dplyr::filter(!(variable %in% "host_care_level" & row_type %in% "label"))
+  ) 
+
+
+model_summary2
 
 
 
-# useful code for copy paste, will not be included in final product like this
-unique_values1 <- unique(study.sample$ofi.categories.broad)
-num_unique_values1 <- length(unique_values1)
-print(num_unique_values1)
->>>>>>> 9d0e3317bdd2402da6eedd0b60961c8ebc09059b
+
+
+
+#Testcode multinominal unadjusted OFI detailed
+
+study.sample$ofi.categories.detailed <- as.factor(study.sample$ofi.categories.detailed)
+
+#Ensure both variables are factors and set reference - no reference yet!
+#study.sample$ofi.categories.detailed <- relevel(as.factor(study.sample$ofi.categories.detailed), ref = "no ofi")
+study.sample$host_care_level <- relevel(as.factor(study.sample$host_care_level), ref = "General Ward")
+
+
+#Fit the multinomial logistic
+multinom_model3 <- multinom(ofi.categories.detailed ~ host_care_level, data = study.sample)
+
+model_summary3 <- tbl_regression(multinom_model3, exponentiate = TRUE, include = everything()) %>%
+  modify_header(label = "Variable") %>%
+  modify_caption("Multinomial Logistic Regression Results - Model 3") %>%
+  bold_labels() %>%
+  bold_levels() %>%
+  bold_p() %>%
+  modify_header(label ~ "Opportunity for improvement") %>%
+  add_nevent(location = "level") %>%
+  add_n(location = "level") %>%
+  # adding event rate
+  modify_table_body(
+    ~ .x %>% 
+      dplyr::mutate(
+        stat_nevent_rate = 
+          ifelse(
+            !is.na(stat_nevent),
+            paste0(style_sigfig(stat_nevent / stat_n, scale = 100), "%"),
+            NA
+          ), 
+        .after = stat_nevent
+      )
+  ) %>%
+  # merge the colums into a single column
+  modify_column_merge(
+    pattern = "{stat_nevent} / {stat_n} ({stat_nevent_rate})",
+    rows = !is.na(stat_nevent)
+  ) %>%
+  # update header to event rate
+  modify_header(stat_nevent = "Event Rate") %>%
+  modify_table_body(
+    ~ .x |> 
+      dplyr::filter(!(variable %in% "host_care_level" & row_type %in% "label"))
+  ) 
+
+
+model_summary3
+
+
+
+
+#Testcode 4 multinominal adjusted OFI detailed
+
+#Ensure both variables are factors and set reference - no reference yet!
+#study.sample$ofi.categories.detailed <- relevel(as.factor(study.sample$ofi.categories.detailed), ref = "no ofi")
+study.sample$host_care_level <- relevel(as.factor(study.sample$host_care_level), ref = "General Ward")
+
+#Fit the multinomial logistic
+multinom_model4 <- multinom(ofi.categories.broad ~ host_care_level + pt_age_yrs + pt_Gender_numeric +
+                              pt_asa_preinjury + ed_gcs_sum + ed_sbp_value + ed_rr_value
+                            + inj_mechanism + ed_gcs_sum + ISS + res_survival, data = study.sample)
+
+model_summary4 <- tbl_regression(multinom_model4, exponentiate = TRUE, include = everything()) %>%
+  modify_header(label = "Variable") %>%
+  modify_caption("Multinomial Logistic Regression Results - Model 4") %>%
+  bold_labels() %>%
+  bold_levels() %>%
+  bold_p() %>%
+  modify_header(label ~ "Opportunity for improvement") %>%
+  add_nevent(location = "level") %>%
+  add_n(location = "level") %>%
+  # adding event rate
+  modify_table_body(
+    ~ .x %>% 
+      dplyr::mutate(
+        stat_nevent_rate = 
+          ifelse(
+            !is.na(stat_nevent),
+            paste0(style_sigfig(stat_nevent / stat_n, scale = 100), "%"),
+            NA
+          ), 
+        .after = stat_nevent
+      )
+  ) %>%
+  # merge the colums into a single column
+  modify_column_merge(
+    pattern = "{stat_nevent} / {stat_n} ({stat_nevent_rate})",
+    rows = !is.na(stat_nevent)
+  ) %>%
+  # update header to event rate
+  modify_header(stat_nevent = "Event Rate") %>%
+  modify_table_body(
+    ~ .x |> 
+      dplyr::filter(!(variable %in% "host_care_level" & row_type %in% "label"))
+  ) 
+
+
+model_summary4
+
+
+
+
+
