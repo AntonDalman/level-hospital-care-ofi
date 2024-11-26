@@ -85,18 +85,17 @@ You can cite document here like this [@exampleKey9999]. Open the file bibliograp
 
 # Methods
 
-We will use the patient data register at Karolinska institute trauma center from 2013-2023, thus making a single center retrospective cohort study. 
-
 ## Study design
 
-This is a registry-based cohort study.
+We conducted a single centre registry-based retrospective cohort study using data from the trauma register and trauma care quality database at the Karolinska University Hospital trauma center between 2013 and 2023 [@noauthor_undated-xw]. 
 
 <!-- Present key elements of study design -->
 
 ## Setting
 
-This study will be conducted using data collected at Karolinska University Hospital trauma center, a level I trauma center [@noauthor_undated-xw]. Opportunities for improvement are since 2017 in Karolinska Hospital measured by a specialised nurse, who reviews all trauma patient cases and flags cases where OFI might be found[@Albaaj2023-el]. The cases flagged then get reviewed at a deeper level by another specialised nurse, and the cases where OFI might be found gets reviewed by a multidisciplinary conference, where cases are either admitted or discarded. All patients dying due to trauma are also discussed in a conference where OFI is also discussed. Before 2017 OFI was decided by a small group of clinicians.
-We will use the trauma care quality database and trauma registry from Karolinska University hospital in this paper. The data available in the trauma registry includes 14000 trauma patients and is logged from the years 2012-2023. The data from the trauma care quality database is a subset of the same data containing 8000 patients where opportunities for improvement have also been logged. The data contains information according to the Utstein template, which includes factors such as Glasgow come scale, systolic blood pressure and respiratory rate [@Ringdal2008-du]
+Opportunities for improvement are since 2017 in Karolinska Hospital measured by a specialised nurse, who reviews all trauma patient cases and flags cases where OFI might be found[@Albaaj2023-el]. The cases flagged then get reviewed at a deeper level by another specialised nurse, and the cases where OFI might be found gets reviewed by a multidisciplinary conference, where cases are either admitted or discarded. All patients dying due to trauma are also discussed in a conference where OFI is also discussed. Before 2017 OFI was decided by a small group of clinicians.
+
+The data available in the trauma registry includes 14000 trauma patients and is logged from the years 2012-2023. The data from the trauma care quality database is a subset of the same data containing 8000 patients where opportunities for improvement have also been reviewed. The data contains information according to the Utstein template, which includes factors such as Glasgow come scale, systolic blood pressure and respiratory rate [@Ringdal2008-du]
 
 
 ```{=html}
