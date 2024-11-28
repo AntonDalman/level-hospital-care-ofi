@@ -129,9 +129,6 @@ carelevel_ofi_df %>%
   )
 
 
-# multivariable logistic regression using type of OFI(broad), host_care_level
-# outcome is 30 day survival.
-
 # 30 day survival. Changed 1(death)=0, 2(Alive)=1, 999(unknown)=NA, and excluded all NA
 
 study.sample <- study.sample %>%
@@ -169,44 +166,13 @@ study.sample$ofi_numeric <- factor(study.sample$ofi_numeric)
 
 
 # Unadjusted bivariable logistic regression using OFI, Host_care_level, OFI as outcome
+#relevel "general ward" as baseline
+study.sample$host_care_level <- relevel(as.factor(study.sample$host_care_level), ref = "General Ward")
 UnadjustedBivariableLR <- glm(ofi_numeric ~ host_care_level, data = study.sample, family = binomial)
 
 UnadjustedBivariableLRPrint <- tbl_regression(UnadjustedBivariableLR,
-                                              exponentiate = TRUE) %>%
-  as_gt() %>%
-  # Add a header to the table
-  tab_header(
-    title = "Unadjusted Bivariable Logistic Regression, with OFI as outcome and Highest level of care as predictor"
-  ) %>%
-  set_variable_labels(
-    host_care_level = "Highest level of hospital care"
-  ) %>% 
-  # Modify the row names using modify_table_body
-  modify_table_body(
-    rows = 1, 
-    columns = 1, 
-    value = "Emergency department"
-  ) %>%
-  modify_table_body(
-    rows = 2, 
-    columns = 1, 
-    value = "General ward"
-  ) %>%
-  modify_table_body(
-    rows = 3, 
-    columns = 1, 
-    value = "Operative theatre"
-  ) %>%
-  modify_table_body(
-    rows = 4, 
-    columns = 1, 
-    value = "High dependency unit"
-  ) %>%
-  modify_table_body(
-    rows = 5, 
-    columns = 1, 
-    value = "Intensive care unit"
-  )
+                                              exponentiate = TRUE)
+
   
 
 print(UnadjustedBivariableLRPrint)
@@ -214,6 +180,7 @@ print(UnadjustedBivariableLRPrint)
 
 
 # Adjusted logistic regression, outcome OFI
+study.sample$host_care_level <- relevel(as.factor(study.sample$host_care_level), ref = "General Ward")
 AdjustedBivariableLR <- glm(
   ofi_numeric ~ host_care_level + pt_age_yrs + pt_Gender_numeric +
     pt_asa_preinjury + ed_gcs_sum + ed_sbp_value + ed_rr_value
@@ -296,7 +263,7 @@ model_summary1 <- tbl_regression(multinom_model1, exponentiate = TRUE, include =
   ) 
 
 
-model_summary1
+print(model_summary1)
 
 
 #TEstcode 2 adjusted multinominal
@@ -308,7 +275,7 @@ multinom_model2 <- multinom(ofi.categories.broad ~ host_care_level + pt_age_yrs 
 
 model_summary2 <- tbl_regression(multinom_model2, exponentiate = TRUE, include = everything()) %>%
   modify_header(label = "Variable") %>%
-  modify_caption("Multinomial Logistic Regression Results - Model 1") %>%
+  modify_caption("Multinomial Logistic Regression Results - Model 2") %>%
   bold_labels() %>%
   bold_levels() %>%
   bold_p() %>%
@@ -341,7 +308,7 @@ model_summary2 <- tbl_regression(multinom_model2, exponentiate = TRUE, include =
   ) 
 
 
-model_summary2
+print(model_summary2)
 
 
 
@@ -395,7 +362,7 @@ model_summary3 <- tbl_regression(multinom_model3, exponentiate = TRUE, include =
   ) 
 
 
-model_summary3
+print(model_summary3)
 
 
 
@@ -407,7 +374,7 @@ model_summary3
 study.sample$host_care_level <- relevel(as.factor(study.sample$host_care_level), ref = "General Ward")
 
 #Fit the multinomial logistic
-multinom_model4 <- multinom(ofi.categories.broad ~ host_care_level + pt_age_yrs + pt_Gender_numeric +
+multinom_model4 <- multinom(ofi.categories.detailed ~ host_care_level + pt_age_yrs + pt_Gender_numeric +
                               pt_asa_preinjury + ed_gcs_sum + ed_sbp_value + ed_rr_value
                             + inj_mechanism + ed_gcs_sum + ISS + res_survival, data = study.sample)
 
@@ -446,7 +413,7 @@ model_summary4 <- tbl_regression(multinom_model4, exponentiate = TRUE, include =
   ) 
 
 
-model_summary4
+print(model_summary4)
 
 
 
